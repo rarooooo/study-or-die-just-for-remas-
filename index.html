@@ -750,14 +750,14 @@
         <div class="panel-header">
           <div>
             <h3>Timer & Loot Vault</h3>
-            <span>120 minutes to save the day</span>
+            <span>10 seconds to save the day</span>
           </div>
         </div>
 
         <div class="timer-panel">
           <div class="timer-display">
             <div>
-              <h2 id="timerDisplay">120:00</h2>
+              <h2 id="timerDisplay">00:10</h2>
               <div class="timer-label" id="timerLabel">Ready to start teaching</div>
             </div>
             <div class="badge">Feynman Technique</div>
@@ -816,17 +816,23 @@
 
     const rewards = {
       life: [
-        'تمشاية في الجنان - a relaxing walk in the garden.',
-        'Plan an out-of-home study day tomorrow.',
-        'Enjoy a refreshing outdoor walk after this victory.'
+        'محطة استراحة منزلية مع مشروبك المفضل.',
+        'قراءة فصل ممتع من كتابك المفضل.',
+        'ساعة رسم أو موسيقى للاسترخاء بعد التدريب.',
+        'خطط لوجبة خفيفة لذيذة بعد المكافأة.',
+        'تحسين زاوية الدراسة لديك بإضاءة جديدة أو موسيقى هادئة.'
       ],
       discovery: [
         'National Geographic: Deep ocean secrets of the Mariana Trench and its alien creatures.',
         'Psychology: The dark psychology of body language and understanding hidden intentions.',
         'Human Experiments: What happens to the human brain after 50 days of total isolation in a cave?',
-        'Neuroscience: The latest Neural Chip implanted in a human brain and how it controls devices by thought.'
+        'Neuroscience: The latest Neural Chip implanted in a human brain and how it controls devices by thought.',
+        'History: The lost city beneath the desert and its mysteries.',
+        'Space: How astronauts sleep during a mission to Mars.'
       ]
     };
+
+    let lastReward = null;
 
     const state = {
       points: 0,
@@ -834,7 +840,7 @@
       playerStep: 0,
       tamdortStep: 0,
       selectedDay: new Date().getDay(),
-      timerSeconds: 120 * 60,
+      timerSeconds: 10,
       timerRunning: false,
       lastSaved: null,
     };
@@ -876,7 +882,7 @@
         }
       }
       state.selectedDay = state.selectedDay ?? new Date().getDay();
-      state.timerSeconds = state.timerSeconds ?? 120 * 60;
+      state.timerSeconds = state.timerSeconds ?? 10;
       state.timerRunning = false;
     }
 
@@ -962,7 +968,7 @@
       state.selectedDay = Number(dayIndex);
       updateStats();
       elements.timerLabel.textContent = 'Ready to start teaching';
-      state.timerSeconds = 120 * 60;
+      state.timerSeconds = 10;
       elements.timerDisplay.textContent = formatTime(state.timerSeconds);
     }
 
@@ -1009,12 +1015,15 @@
     function randomReward() {
       const isLife = Math.random() < 0.5;
       const list = isLife ? rewards.life : rewards.discovery;
-      return list[Math.floor(Math.random() * list.length)];
+      const options = list.filter(item => item !== lastReward);
+      const reward = options[Math.floor(Math.random() * options.length)];
+      lastReward = reward;
+      return reward;
     }
 
     function completeSession() {
       state.timerRunning = false;
-      state.totalMinutes += 120;
+      state.totalMinutes += 0.1667;
       state.points += 60;
       state.playerStep = Math.min(state.playerStep + 1, TOTAL_STEPS);
       checkLoss();
@@ -1056,7 +1065,7 @@
 
     function giveUpMission() {
       state.timerRunning = false;
-      state.timerSeconds = 120 * 60;
+      state.timerSeconds = 10;
       state.tamdortStep = Math.min(state.tamdortStep + 1, TOTAL_STEPS);
       elements.timerDisplay.textContent = formatTime(state.timerSeconds);
       elements.timerLabel.textContent = 'Tamdort advances while you recover';
@@ -1066,7 +1075,7 @@
 
     function onCloseModal() {
       hideRewardModal();
-      state.timerSeconds = 120 * 60;
+      state.timerSeconds = 10;
       elements.timerDisplay.textContent = formatTime(state.timerSeconds);
       elements.timerLabel.textContent = 'Ready for the next rescue mission.';
       saveState();
