@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌟 مهمة الإنقاذ - بيكسل آرت</title>
+    <style>
+        /* ============================================================
+           🎨 الأنماط الأساسية
+           ============================================================ */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        :root {
+            --pink: #FFB6C1;
+            --dark-pink: #FF69B4;
+            --purple: #DDA0DD;
+            --dark-purple: #9370DB;
+            --soft-pink: #FFF0F5;
+            --lavender: #E6E6FA;
+            --white: #FFFFFF;
+            --text-dark: #4A1942;
+            --shadow-pink: rgba(255, 105, 180, 0.3);
+            --shadow-purple: rgba(147, 112, 219, 0.3);
+            --gold: #FFD700;
+            --pixel-border: #4A1942;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            image-rendering: pixelated;
+        }
+
+        body {
+            font-family: 'Press Start 2P', 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #FFF0F5 0%, #E6E6FA 30%, #FFB6C1 60%, #DDA0DD 100%);
+            min-height: 100vh;
+            padding: 16px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+           ⭐ نجوم الخلفية - بيكسل ستايل
+           ============================================================ */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: twinkle var(--duration, 2s) ease-in-out infinite;
+            opacity: 0.3;
+            image-rendering: pixelated;
+        }
+
+        @keyframes twinkle {
+            0%,
+            100% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.3);
+            }
+        }
+
+        /* ============================================================
+           📦 الحاوية الرئيسية
+           ============================================================ */
+        .app-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================================
+           🏠 الهيدر - بيكسل
+           ============================================================ */
+        .header {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            border: 4px solid var(--pixel-border);
+            box-shadow: 8px 8px 0 rgba(74, 25, 66, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            image-rendering: pixelated;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pixel-icon {
+            font-size: 32px;
+            animation: bounce 2s ease-in-out infinite;
+            image-rendering: pixelated;
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .header h1 {
+            font-size: clamp(16px, 3vw, 22px);
+            color: var(--text-dark);
+            font-weight: 400;
+            text-shadow: 3px 3px 0 var(--pink);
+            line-height: 1.4;
+            letter-spacing: 1px;
+        }
+
+        .header-subtitle {
+            color: var(--dark-purple);
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: var(--soft-pink);
+            padding: 6px 14px;
+            border-radius: 4px;
+            border: 3px solid var(--pixel-border);
+            box-shadow: 4px 4px 0 rgba(74, 25, 66, 0.15);
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .stat-badge .label {
+            font-size: 8px;
+            color: var(--dark-purple);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-badge .value {
+            font-size: 16px;
+            color: var(--dark-pink);
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           👾 الشخصيات البيكسل - مرسومة بالكامل
+           ============================================================ */
+        .characters-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 16px 12px;
+            text-align: center;
+            border: 4px solid var(--pixel-border);
+            box-shadow: 6px 6px 0 rgba(74, 25, 66, 0.15);
+            transition: transform 0.3s ease;
+            image-rendering: pixelated;
+        }
+
+        .character-card:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .character-card .char-name {
+            font-weight: 400;
+            color: var(--text-dark);
+            font-size: 12px;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .character-card .char-desc {
+            font-size: 8px;
+            color: var(--dark-purple);
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ====== شخصية المعلمة - بيكسل ====== */
+        .pixel-teacher {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            gap: 2px;
+            width: 72px;
+            height: 80px;
+            margin: 0 auto;
+            image-rendering: pixelated;
+        }
+
+        .pixel {
+            border-radius: 1px;
+            background: transparent;
+        }
+
+        /* ألوان البيكسل */
+        .p-skin {
+            background: #FFDAB9;
+        }
+        .p-skin-dark {
+            background: #F5C4A0;
+        }
+        .p-hair {
+            background: #5C3317;
+        }
+        .p-hair-light {
+            background: #8B5A2B;
+        }
+        .p-eye {
+            background: #2D1B2B;
+        }
+        .p-eye-white {
+            background: #FFFFFF;
+        }
+        .p-dress {
+            background: #FF69B4;
+        }
+        .p-dress-dark {
+            background: #E84A8A;
+        }
+        .p-mouth {
+            background: #E85D6F;
+        }
+        .p-shoes {
+            background: #4A1942;
+        }
+        .p-white {
+            background: #FFFFFF;
+        }
+        .p-transparent {
+            background: transparent;
+        }
+        .p-shadow {
+            background: rgba(74, 25, 66, 0.1);
+        }
+
+        /* ====== شخصية تامدورت - بيكسل ====== */
+        .pixel-tamdort {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            gap: 2px;
+            width: 72px;
+            height: 80px;
+            margin: 0 auto;
+            image-rendering: pixelated;
+        }
+
+        .p-red {
+            background: #CC0000;
+        }
+        .p-red-dark {
+            background: #990000;
+        }
+        .p-red-light {
+            background: #FF3333;
+        }
+        .p-horn {
+            background: #663300;
+        }
+        .p-horn-dark {
+            background: #442200;
+        }
+        .p-eye-yellow {
+            background: #FFD700;
+        }
+        .p-eye-red {
+            background: #FF0000;
+        }
+        .p-mouth-dark {
+            background: #660000;
+        }
+        .p-cloak {
+            background: #2D004D;
+        }
+        .p-cloak-dark {
+            background: #1A002E;
+        }
+
+        /* ====== شخصية البطلة - بيكسل ====== */
+        .pixel-hero {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            gap: 2px;
+            width: 72px;
+            height: 80px;
+            margin: 0 auto;
+            image-rendering: pixelated;
+        }
+
+        .p-gold {
+            background: #FFD700;
+        }
+        .p-gold-dark {
+            background: #DAA520;
+        }
+        .p-cape {
+            background: #9370DB;
+        }
+        .p-cape-dark {
+            background: #7B58C4;
+        }
+        .p-cape-light {
+            background: #B39DDB;
+        }
+
+        /* ============================================================
+           📋 قسم المهام حسب اليوم
+           ============================================================ */
+        .missions-section {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 8px;
+            padding: 20px 22px;
+            border: 4px solid var(--pixel-border);
+            box-shadow: 8px 8px 0 rgba(74, 25, 66, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .section-header h2 {
+            color: var(--text-dark);
+            font-size: clamp(14px, 2.5vw, 18px);
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           🎀 الأزرار - بيكسل
+           ============================================================ */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 3px solid var(--pixel-border);
+            box-shadow: 4px 4px 0 rgba(74, 25, 66, 0.15);
+            font-family: 'Press Start 2P', cursive;
+            letter-spacing: 0.5px;
+            image-rendering: pixelated;
+        }
+
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 rgba(74, 25, 66, 0.15);
+        }
+
+        .btn-pink {
+            background: var(--dark-pink);
+            color: white;
+        }
+        .btn-pink:hover {
+            background: #FF5BAE;
+            transform: scale(1.03);
+        }
+
+        .btn-purple {
+            background: var(--dark-purple);
+            color: white;
+        }
+        .btn-purple:hover {
+            background: #A87FDB;
+            transform: scale(1.03);
+        }
+
+        .btn-soft {
+            background: var(--soft-pink);
+            color: var(--text-dark);
+        }
+        .btn-soft:hover {
+            background: var(--pink);
+            transform: scale(1.03);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--text-dark);
+        }
+        .btn-gold:hover {
+            background: #FFE44D;
+            transform: scale(1.03);
+        }
+
+        .btn-danger {
+            background: #FF6B6B;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #FF4444;
+            transform: scale(1.03);
+        }
+
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 9px;
+        }
+
+        /* ============================================================
+           📝 قائمة المهام
+           ============================================================ */
+        .day-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 14px;
+            padding: 10px 14px;
+            background: var(--soft-pink);
+            border-radius: 4px;
+            border: 3px solid var(--pixel-border);
+        }
+
+        .day-selector select {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 3px solid var(--pixel-border);
+            background: white;
+            font-family: 'Press Start 2P', cursive;
+            color: var(--text-dark);
+            font-size: 10px;
+            min-width: 120px;
+        }
+
+        .day-selector select:focus {
+            outline: none;
+            border-color: var(--dark-pink);
+        }
+
+        .day-label {
+            font-weight: 400;
+            color: var(--dark-pink);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .mission-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .mission-item {
+            background: var(--soft-pink);
+            border-radius: 4px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 3px solid var(--pixel-border);
+            transition: all 0.3s ease;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mission-item:hover {
+            transform: translateX(3px);
+        }
+
+        .mission-item.completed {
+            opacity: 0.6;
+            background: var(--lavender);
+        }
+
+        .mission-item.completed .mission-text {
+            text-decoration: line-through;
+        }
+
+        .mission-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .mission-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            border: 3px solid var(--pixel-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .mission-check.done {
+            background: var(--dark-pink);
+            border-color: var(--pixel-border);
+        }
+
+        .mission-check.done::after {
+            content: '✓';
+            color: white;
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        .mission-text {
+            color: var(--text-dark);
+            font-weight: 400;
+            font-size: 11px;
+            flex: 1;
+            letter-spacing: 0.3px;
+        }
+
+        .mission-desc {
+            font-size: 8px;
+            color: var(--dark-purple);
+            width: 100%;
+            letter-spacing: 0.3px;
+        }
+
+        .mission-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        /* ============================================================
+           📊 شريط الحالة
+           ============================================================ */
+        .status-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .status-item {
+            background: var(--lavender);
+            padding: 10px 14px;
+            border-radius: 4px;
+            border: 3px solid var(--pixel-border);
+            text-align: center;
+        }
+
+        .status-item .label {
+            font-size: 8px;
+            color: var(--dark-purple);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .status-item .value {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 400;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================================
+           🎁 المكافآت - الصناديق المجهولة
+           ============================================================ */
+        .rewards-section {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 8px;
+            padding: 20px 22px;
+            border: 4px solid var(--pixel-border);
+            box-shadow: 8px 8px 0 rgba(74, 25, 66, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .reward-item {
+            background: var(--soft-pink);
+            padding: 10px 6px;
+            border-radius: 4px;
+            text-align: center;
+            border: 3px solid var(--pixel-border);
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            image-rendering: pixelated;
+        }
+
+        .reward-item.unlocked {
+            background: linear-gradient(135deg, var(--gold), #FFD700, #FFA500);
+            border-color: var(--pixel-border);
+            animation: rewardPop 0.6s ease;
+            cursor: pointer;
+        }
+
+        .reward-item.unlocked:hover {
+            transform: scale(1.06);
+            box-shadow: 6px 6px 0 rgba(255, 215, 0, 0.4);
+        }
+
+        .reward-item .surprise-badge {
+            display: none;
+            font-size: 7px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 2px;
+            color: var(--text-dark);
+            margin-top: 3px;
+            font-weight: 400;
+            border: 2px solid var(--pixel-border);
+        }
+
+        .reward-item.unlocked .surprise-badge {
+            display: block;
+        }
+
+        @keyframes rewardPop {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.12) rotate(-3deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .reward-item .emoji {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 3px;
+            image-rendering: pixelated;
+        }
+
+        .reward-item .name {
+            font-size: 8px;
+            color: var(--text-dark);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .reward-item .status {
+            font-size: 7px;
+            color: var(--dark-purple);
+            letter-spacing: 0.3px;
+        }
+
+        .reward-item.unlocked .status {
+            color: #8B6508;
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           📱 المودالات - بيكسل
+           ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(74, 25, 66, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 8px;
+            padding: 24px 28px;
+            max-width: 420px;
+            width: 100%;
+            border: 4px solid var(--pixel-border);
+            box-shadow: 12px 12px 0 rgba(74, 25, 66, 0.2);
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            0% {
+                transform: scale(0.8) translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal h3 {
+            color: var(--text-dark);
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+
+        .modal input,
+        .modal textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 3px solid var(--pixel-border);
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: 'Press Start 2P', cursive;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+            background: var(--soft-pink);
+        }
+
+        .modal input:focus,
+        .modal textarea:focus {
+            outline: none;
+            border-color: var(--dark-pink);
+        }
+
+        .modal textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* مودال المكافأة */
+        .modal .surprise-content {
+            background: linear-gradient(135deg, #FFF8DC, #FFE4B5);
+            padding: 18px;
+            border-radius: 4px;
+            margin: 12px 0;
+            border: 3px dashed var(--gold);
+            text-align: center;
+        }
+
+        .modal .surprise-content .big-emoji {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 8px;
+            image-rendering: pixelated;
+        }
+
+        .modal .surprise-content .surprise-text {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================================
+           📭 الحالة الفارغة
+           ============================================================ */
+        .empty-state {
+            text-align: center;
+            padding: 24px 12px;
+            color: var(--dark-purple);
+        }
+
+        .empty-state .emoji {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 6px;
+            image-rendering: pixelated;
+        }
+
+        .empty-state .text {
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .empty-state .sub {
+            font-size: 9px;
+            opacity: 0.7;
+            letter-spacing: 0.3px;
+        }
+
+        /* ============================================================
+           🎊 تأثيرات إضافية
+           ============================================================ */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 1px;
+            animation: confettiFall linear forwards;
+            image-rendering: pixelated;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================================
+           📱 تحسينات للجوال
+           ============================================================ */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 14px 16px;
+            }
+
+            .header-title {
+                flex-direction: column;
+            }
+
+            .stats {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .stat-badge {
+                flex: 1;
+                min-width: 50px;
+                padding: 4px 10px;
+            }
+
+            .stat-badge .value {
+                font-size: 14px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .controls {
+                justify-content: center;
+            }
+
+            .controls .btn {
+                font-size: 9px;
+                padding: 5px 10px;
+            }
+
+            .mission-item {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+                padding: 10px;
+            }
+
+            .mission-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mission-actions {
+                justify-content: center;
+                margin-top: 4px;
+            }
+
+            .characters-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .character-card {
+                padding: 10px 6px;
+            }
+
+            .pixel-teacher,
+            .pixel-tamdort,
+            .pixel-hero {
+                width: 56px;
+                height: 62px;
+            }
+
+            .modal {
+                padding: 16px 18px;
+                margin: 10px;
+            }
+
+            .modal h3 {
+                font-size: 14px;
+            }
+
+            .rewards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+
+            .reward-item .emoji {
+                font-size: 20px;
+            }
+
+            .reward-item .name {
+                font-size: 7px;
+            }
+
+            .status-bar {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+
+            .status-item {
+                padding: 6px 8px;
+            }
+
+            .status-item .value {
+                font-size: 12px;
+            }
+
+            .day-selector {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .day-selector select {
+                width: 100%;
+                font-size: 9px;
+            }
+
+            .day-label {
+                font-size: 10px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+
+            .missions-section,
+            .rewards-section {
+                padding: 12px 14px;
+            }
+
+            .characters-row {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 6px;
+            }
+
+            .character-card .char-name {
+                font-size: 9px;
+            }
+
+            .character-card .char-desc {
+                font-size: 7px;
+            }
+
+            .pixel-teacher,
+            .pixel-tamdort,
+            .pixel-hero {
+                width: 44px;
+                height: 50px;
+                gap: 1.5px;
+            }
+
+            .stats {
+                gap: 4px;
+            }
+
+            .stat-badge {
+                min-width: 40px;
+                padding: 3px 6px;
+            }
+
+            .stat-badge .value {
+                font-size: 12px;
+            }
+            .stat-badge .label {
+                font-size: 6px;
+            }
+
+            .btn {
+                font-size: 8px;
+                padding: 4px 8px;
+            }
+
+            .btn-sm {
+                font-size: 7px;
+                padding: 3px 6px;
+            }
+
+            .mission-text {
+                font-size: 9px;
+            }
+
+            .rewards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .modal {
+                padding: 12px 14px;
+            }
+
+            .modal input,
+            .modal textarea {
+                font-size: 9px;
+                padding: 8px 10px;
+            }
+
+            .modal .surprise-content .surprise-text {
+                font-size: 11px;
+            }
+        }
+
+        /* ============================================================
+           ✨ تأثيرات إضافية
+           ============================================================ */
+        .fade-in {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* شريط التمرير المخصص - بيكسل */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--soft-pink);
+            border: 2px solid var(--pixel-border);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--dark-pink);
+            border: 2px solid var(--pixel-border);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--purple);
+        }
+
+        ::selection {
+            background: var(--dark-pink);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== ⭐ نجوم الخلفية ====== -->
+    <div class="stars" id="stars"></div>
+
+    <div class="app-container">
+
+        <!-- ====== 🏠 الهيدر ====== -->
+        <header class="header">
+            <div class="header-title">
+                <span class="pixel-icon">🕹️</span>
+                <div>
+                    <h1>🌟 مهمة الإنقاذ</h1>
+                    <div class="header-subtitle">📚 مملكة المعرفة - بيكسل</div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-badge">
+                    <div class="label">⭐ النقاط</div>
+                    <div class="value" id="pointsDisplay">0</div>
+                </div>
+                <div class="stat-badge">
+                    <div class="label">✅ المهام</div>
+                    <div class="value" id="completedDisplay">0/0</div>
+                </div>
+                <div class="stat-badge">
+                    <div class="label">📅 الأسبوع</div>
+                    <div class="value" id="weekDisplay">1</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ====== 👾 الشخصيات البيكسل ====== -->
+        <div class="characters-row">
+
+            <!-- شخصية المعلمة -->
+            <div class="character-card">
+                <div class="pixel-teacher" id="teacherPixel">
+                    <!-- الصف 1 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-hair"></div>
+                    <div class="pixel p-hair"></div>
+                    <div class="pixel p-hair"></div>
+                    <div class="pixel p-hair"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 2 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-hair"></div>
+                    <div class="pixel p-hair-light"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-hair-light"></div>
+                    <div class="pixel p-hair"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 3 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-hair"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-hair"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 4 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-eye-white"></div>
+                    <div class="pixel p-eye"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 5 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-eye-white"></div>
+                    <div class="pixel p-mouth"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 6 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress-dark"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 7 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 8 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-dress"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 9 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 10 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-transparent"></div>
+                </div>
+                <div class="char-name">👩‍🏫 المعلمة</div>
+                <div class="char-desc">🧠 أنقذي الطلاب</div>
+            </div>
+
+            <!-- شخصية تامدورت -->
+            <div class="character-card">
+                <div class="pixel-tamdort" id="tamdortPixel">
+                    <!-- الصف 1 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-horn"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-horn"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 2 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-horn-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-horn-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 3 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-red-dark"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 4 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-eye-yellow"></div>
+                    <div class="pixel p-eye-red"></div>
+                    <div class="pixel p-eye-yellow"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 5 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-mouth-dark"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 6 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 7 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-red"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 8 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 9 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 10 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-cloak-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                </div>
+                <div class="char-name">👹 تامدورت</div>
+                <div class="char-desc">⚠️ لا تدعيه يقترب</div>
+            </div>
+
+            <!-- شخصية البطلة -->
+            <div class="character-card">
+                <div class="pixel-hero" id="heroPixel">
+                    <!-- الصف 1 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-gold"></div>
+                    <div class="pixel p-gold"></div>
+                    <div class="pixel p-gold"></div>
+                    <div class="pixel p-gold"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 2 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-gold-dark"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-gold-dark"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 3 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-eye"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-eye"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 4 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-mouth"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-skin"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 5 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape-dark"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 6 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cape-light"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape-light"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 7 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 8 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-cape"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 9 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-transparent"></div>
+                    <!-- الصف 10 -->
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-transparent"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-shoes"></div>
+                    <div class="pixel p-transparent"></div>
+                </div>
+                <div class="char-name">🏆 البطلة</div>
+                <div class="char-desc">✨ أنقذي كل الطلاب</div>
+            </div>
+
+        </div>
+
+        <!-- ====== 📋 قسم المهام حسب اليوم ====== -->
+        <section class="missions-section">
+            <div class="section-header">
+                <h2>📋 مهام اليوم</h2>
+                <div class="controls">
+                    <button class="btn btn-pink" onclick="openAddMission()">➕ إضافة</button>
+                    <button class="btn btn-purple" onclick="resetWeek()">🔄 تجديد</button>
+                    <button class="btn btn-soft" onclick="clearCompleted()">🗑️ منجزات</button>
+                </div>
+            </div>
+
+            <!-- محدد اليوم -->
+            <div class="day-selector">
+                <span class="day-label">📅 اختر اليوم:</span>
+                <select id="daySelect">
+                    <option value="6">السبت</option>
+                    <option value="0">الأحد</option>
+                    <option value="1">الإثنين</option>
+                    <option value="2">الثلاثاء</option>
+                    <option value="3">الأربعاء</option>
+                    <option value="4">الخميس</option>
+                    <option value="5">الجمعة</option>
+                </select>
+                <button class="btn btn-purple" onclick="loadDayMissions()">📋 تحميل</button>
+                <span style="font-size:9px; color:var(--dark-purple); letter-spacing:0.5px;" id="currentDayLabel">اليوم: السبت</span>
+            </div>
+
+            <div class="mission-list" id="missionList">
+                <!-- المهام تظهر هنا -->
+            </div>
+
+            <div class="status-bar">
+                <div class="status-item">
+                    <div class="label">📊 التقدم</div>
+                    <div class="value" id="progressText">0%</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">⭐ نقاط اليوم</div>
+                    <div class="value" id="todayPoints">0</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">🔥 أقوى يوم</div>
+                    <div class="value" id="bestDay">-</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== 🎁 المكافآت - الصناديق المجهولة ====== -->
+        <section class="rewards-section">
+            <div class="section-header">
+                <h2>📦 الصناديق المجهولة</h2>
+                <span style="color: var(--dark-purple); font-size: 9px; letter-spacing:0.5px;">✨ أنجزي المهام لفتح الصناديق</span>
+            </div>
+            <div class="rewards-grid" id="rewardsGrid">
+                <!-- المكافآت تظهر هنا -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ====== 📝 مودال الإضافة ====== -->
+    <div class="modal-overlay" id="addModal">
+        <div class="modal">
+            <h3>📝 إضافة مهمة جديدة</h3>
+            <input type="text" id="missionInput" placeholder="عنوان المهمة..." />
+            <textarea id="missionDesc" placeholder="وصف المهمة (اختياري)..."></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-pink" onclick="addMission()">💾 حفظ</button>
+                <button class="btn btn-soft" onclick="closeModal()">❌ إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== ✏️ مودال التعديل ====== -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <h3>✏️ تعديل المهمة</h3>
+            <input type="text" id="editMissionInput" placeholder="عنوان المهمة..." />
+            <textarea id="editMissionDesc" placeholder="وصف المهمة..."></textarea>
+            <input type="hidden" id="editMissionId" />
+            <div class="modal-actions">
+                <button class="btn btn-pink" onclick="saveEdit()">💾 حفظ</button>
+                <button class="btn btn-soft" onclick="closeEditModal()">❌ إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== 🎁 مودال عرض المكافأة ====== -->
+    <div class="modal-overlay" id="rewardModal">
+        <div class="modal">
+            <h3>🎉 مبارك! فتحتي صندوقاً!</h3>
+            <div class="surprise-content" id="surpriseContent">
+                <span class="big-emoji" id="rewardEmoji">📦</span>
+                <div class="surprise-text" id="rewardSurpriseText">المفاجأة تظهر هنا!</div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-gold" onclick="closeRewardModal()">✨ رائع! ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    🎮 كود الجافاسكريبت
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // 📦 البيانات
+        // ============================================================
+        let currentDay = new Date().getDay();
+        let missions = {};
+        let points = 0;
+        let week = 1;
+        let bestDay = 0;
+
+        // المهام الدراسية حسب اليوم
+        const defaultMissions = {
+            0: [
+                { id: 'sun1', title: '📖 قراءة 5 صفحات', desc: 'اقرأ 5 صفحات من الكتاب المدرسي', completed: false },
+                { id: 'sun2', title: '✍️ كتابة 3 جمل', desc: 'اكتب 3 جمل عن موضوع تحبينه', completed: false },
+                { id: 'sun3', title: '🧮 حل 3 مسائل', desc: 'حل 3 مسائل حسابية', completed: false }
+            ],
+            1: [
+                { id: 'mon1', title: '📚 مراجعة الدرس', desc: 'راجعي درس اليوم في المدرسة', completed: false },
+                { id: 'mon2', title: '✏️ حل تمارين', desc: 'حل تمارين الكتاب المدرسي', completed: false },
+                { id: 'mon3', title: '🎯 هدف إضافي', desc: 'أضفي هدفاً دراسياً إضافياً', completed: false }
+            ],
+            2: [
+                { id: 'tue1', title: '📖 قراءة قصة', desc: 'اقرأي قصة قصيرة بالعربية', completed: false },
+                { id: 'tue2', title: '🧮 تدريب جدول الضرب', desc: 'تدربي على جدول الضرب 10 دقائق', completed: false },
+                { id: 'tue3', title: '📝 كتابة فقرة', desc: 'اكتبي فقرة عن عائلتك', completed: false }
+            ],
+            3: [
+                { id: 'wed1', title: '📚 مراجعة عامة', desc: 'راجعي كل الدروس السابقة', completed: false },
+                { id: 'wed2', title: '✍️ حل اختبار', desc: 'حلي اختباراً قصيراً', completed: false },
+                { id: 'wed3', title: '🌍 معلومة جديدة', desc: 'اقرأي 3 معلومات جديدة', completed: false }
+            ],
+            4: [
+                { id: 'thu1', title: '📖 قراءة 7 صفحات', desc: 'اقرأي 7 صفحات من الكتاب', completed: false },
+                { id: 'thu2', title: '✏️ كتابة قصة', desc: 'اكتبي قصة قصيرة من 5 جمل', completed: false },
+                { id: 'thu3', title: '🧮 مسائل متنوعة', desc: 'حلي 5 مسائل متنوعة', completed: false }
+            ],
+            5: [
+                { id: 'fri1', title: '📚 مراجعة الأسبوع', desc: 'راجعي كل ما تعلمتيه هذا الأسبوع', completed: false },
+                { id: 'fri2', title: '✏️ حل واجبات', desc: 'حل واجبات نهاية الأسبوع', completed: false },
+                { id: 'fri3', title: '🎯 هدف أسبوعي', desc: 'حددي هدفاً للأسبوع القادم', completed: false }
+            ],
+            6: [
+                { id: 'sat1', title: '📖 قراءة 10 صفحات', desc: 'اقرأي 10 صفحات من الكتاب المدرسي', completed: false },
+                { id: 'sat2', title: '✍️ كتابة فقرة', desc: 'اكتبي فقرة عن يومك', completed: false },
+                { id: 'sat3', title: '🧮 حل 5 مسائل', desc: 'حل 5 مسائل رياضيات', completed: false },
+                { id: 'sat4', title: '🎯 هدف إضافي', desc: 'أضفي هدفك الدراسي الخاص', completed: false }
+            ]
+        };
+
+        // 🎁 المكافآت - صناديق مجهولة
+        const rewards = [{
+            id: 'r1',
+            name: '📦 صندوق ١',
+            emoji: '📦',
+            required: 2,
+            unlocked: false,
+            surprise: '🍕 جربي أكلة جديدة: بيتزا بالخضار المشوية! 🍕'
+        }, {
+            id: 'r2',
+            name: '📦 صندوق ٢',
+            emoji: '📦',
+            required: 4,
+            unlocked: false,
+            surprise: '🎬 شاهدي فيديو يوتيوب: "كيف تتعلمين أي شيء في 20 دقيقة" 🎬'
+        }, {
+            id: 'r3',
+            name: '📦 صندوق ٣',
+            emoji: '📦',
+            required: 6,
+            unlocked: false,
+            surprise: '🧘 تمرين رياضي: 10 دقائق يوغا صباحية 🧘'
+        }, {
+            id: 'r4',
+            name: '📦 صندوق ٤',
+            emoji: '📦',
+            required: 9,
+            unlocked: false,
+            surprise: '🎨 تحدي فني: ارسمي شيئاً باستخدام 5 خطوط فقط! 🎨'
+        }, {
+            id: 'r5',
+            name: '📦 صندوق ٥',
+            emoji: '📦',
+            required: 12,
+            unlocked: false,
+            surprise: '📚 اقرأي قصة قصيرة قبل النوم 📚'
+        }, {
+            id: 'r6',
+            name: '📦 صندوق ٦',
+            emoji: '📦',
+            required: 15,
+            unlocked: false,
+            surprise: '🍪 وصفة سهلة: كوكيز الشوكولاتة في 15 دقيقة! 🍪'
+        }, {
+            id: 'r7',
+            name: '📦 صندوق ٧',
+            emoji: '📦',
+            required: 18,
+            unlocked: false,
+            surprise: '💪 تحدي: 30 تمرين قرفصاء الآن! 💪'
+        }, {
+            id: 'r8',
+            name: '📦 صندوق ٨',
+            emoji: '📦',
+            required: 22,
+            unlocked: false,
+            surprise: '🎵 اسمعي أغنية جديدة من نوع موسيقي مختلف 🎵'
+        }, {
+            id: 'r9',
+            name: '📦 صندوق ٩',
+            emoji: '📦',
+            required: 27,
+            unlocked: false,
+            surprise: '📝 تحدي كتابة: اكتبي قصة من 100 كلمة 📝'
+        }, {
+            id: 'r10',
+            name: '📦 صندوق ١٠',
+            emoji: '📦',
+            required: 32,
+            unlocked: false,
+            surprise: '🌟 مكافأة خاصة: اختاري أي مكافأة من القائمة وافعليها اليوم! 🌟'
+        }];
+
+        const dayNames = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+
+        // ============================================================
+        // 💾 تحميل وحفظ البيانات
+        // ============================================================
+        function loadData() {
+            const saved = localStorage.getItem('rescueGameDataV3');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    missions = data.missions || {};
+                    points = data.points || 0;
+                    week = data.week || 1;
+                    bestDay = data.bestDay || 0;
+                    if (data.rewards) {
+                        data.rewards.forEach((r, i) => {
+                            if (i < rewards.length) rewards[i].unlocked = r.unlocked;
+                        });
+                    }
+                    if (data.currentDay !== undefined) {
+                        currentDay = data.currentDay;
+                    }
+                } catch (e) {
+                    console.log('خطأ في تحميل البيانات');
+                }
+            }
+
+            for (let day in defaultMissions) {
+                if (!missions[day] || missions[day].length === 0) {
+                    missions[day] = JSON.parse(JSON.stringify(defaultMissions[day]));
+                }
+            }
+
+            saveData();
+        }
+
+        function saveData() {
+            const data = {
+                missions: missions,
+                points: points,
+                week: week,
+                bestDay: bestDay,
+                rewards: rewards,
+                currentDay: currentDay
+            };
+            localStorage.setItem('rescueGameDataV3', JSON.stringify(data));
+        }
+
+        // ============================================================
+        // 📋 تحميل مهام اليوم
+        // ============================================================
+        function loadDayMissions() {
+            const select = document.getElementById('daySelect');
+            currentDay = parseInt(select.value);
+
+            if (!missions[currentDay] || missions[currentDay].length === 0) {
+                missions[currentDay] = JSON.parse(JSON.stringify(defaultMissions[currentDay] || defaultMissions[6]));
+            }
+
+            document.getElementById('currentDayLabel').textContent = `اليوم: ${dayNames[currentDay]}`;
+            renderMissions();
+            saveData();
+        }
+
+        // ============================================================
+        // 🖥️ عرض المهام
+        // ============================================================
+        function renderMissions() {
+            const list = document.getElementById('missionList');
+            const dayMissions = missions[currentDay] || [];
+
+            if (dayMissions.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <span class="emoji">📭</span>
+                        <div class="text">لا توجد مهام لهذا اليوم</div>
+                        <div class="sub">أضفي مهام جديدة أو اختاري يوماً آخر</div>
+                    </div>
+                `;
+                updateStats();
+                updateRewards();
+                return;
+            }
+
+            list.innerHTML = dayMissions.map((mission, index) => `
+                <div class="mission-item ${mission.completed ? 'completed' : ''} fade-in" style="animation-delay: ${index * 0.05}s">
+                    <div class="mission-info">
+                        <div class="mission-check ${mission.completed ? 'done' : ''}" 
+                             onclick="toggleMission(${index})"></div>
+                        <div>
+                            <div class="mission-text">${mission.title}</div>
+                            ${mission.desc ? `<div class="mission-desc">${mission.desc}</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="mission-actions">
+                        <button class="btn btn-soft btn-sm" onclick="openEdit(${index})">✏️</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteMission(${index})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateStats();
+            updateRewards();
+            saveData();
+        }
+
+        // ============================================================
+        // 🔄 عمليات المهام
+        // ============================================================
+        function toggleMission(index) {
+            const dayMissions = missions[currentDay];
+            if (index >= 0 && index < dayMissions.length) {
+                const mission = dayMissions[index];
+                mission.completed = !mission.completed;
+
+                if (mission.completed) {
+                    points += 1;
+                    const todayCompleted = dayMissions.filter(m => m.completed).length;
+                    if (todayCompleted > bestDay) bestDay = todayCompleted;
+                } else {
+                    points -= 1;
+                }
+
+                renderMissions();
+                saveData();
+            }
+        }
+
+        function addMission() {
+            const titleInput = document.getElementById('missionInput');
+            const descInput = document.getElementById('missionDesc');
+
+            const title = titleInput.value.trim();
+            const desc = descInput.value.trim();
+
+            if (!title) {
+                alert('✨ الرجاء كتابة عنوان للمهمة!');
+                return;
+            }
+
+            if (!missions[currentDay]) {
+                missions[currentDay] = [];
+            }
+
+            missions[currentDay].push({
+                id: Date.now() + Math.random(),
+                title: title,
+                desc: desc || '',
+                completed: false
+            });
+
+            titleInput.value = '';
+            descInput.value = '';
+            closeModal();
+            renderMissions();
+            saveData();
+        }
+
+        function deleteMission(index) {
+            if (confirm('🗑️ هل تريدين حذف هذه المهمة؟')) {
+                missions[currentDay].splice(index, 1);
+                renderMissions();
+                saveData();
+            }
+        }
+
+        function openEdit(index) {
+            const mission = missions[currentDay][index];
+            document.getElementById('editMissionInput').value = mission.title;
+            document.getElementById('editMissionDesc').value = mission.desc || '';
+            document.getElementById('editMissionId').value = index;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function saveEdit() {
+            const index = parseInt(document.getElementById('editMissionId').value);
+            const title = document.getElementById('editMissionInput').value.trim();
+            const desc = document.getElementById('editMissionDesc').value.trim();
+
+            if (!title) {
+                alert('✨ الرجاء كتابة عنوان للمهمة!');
+                return;
+            }
+
+            if (index >= 0 && index < missions[currentDay].length) {
+                missions[currentDay][index].title = title;
+                missions[currentDay][index].desc = desc;
+                closeEditModal();
+                renderMissions();
+                saveData();
+            }
+        }
+
+        function clearCompleted() {
+            const dayMissions = missions[currentDay] || [];
+            const completed = dayMissions.filter(m => m.completed);
+            if (completed.length === 0) {
+                alert('🌸 لا توجد مهام منجزة لحذفها!');
+                return;
+            }
+            if (confirm(`🗑️ هل تريدين حذف ${completed.length} مهمة منجزة؟`)) {
+                missions[currentDay] = dayMissions.filter(m => !m.completed);
+                renderMissions();
+                saveData();
+            }
+        }
+
+        function resetWeek() {
+            if (confirm('🔄 هل تريدين تجديد الأسبوع؟ سيتم حفظ النقاط وسيبدأ أسبوع جديد.')) {
+                week += 1;
+                points = 0;
+                rewards.forEach(r => r.unlocked = false);
+                for (let day in missions) {
+                    missions[day].forEach(m => m.completed = false);
+                }
+                renderMissions();
+                saveData();
+                alert(`🌟 أسبوع ${week} بدأ! حظاً موفقاً!`);
+            }
+        }
+
+        // ============================================================
+        // 📊 تحديث الإحصائيات
+        // ============================================================
+        function updateStats() {
+            const dayMissions = missions[currentDay] || [];
+            const total = dayMissions.length;
+            const completed = dayMissions.filter(m => m.completed).length;
+            const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('pointsDisplay').textContent = points;
+            document.getElementById('completedDisplay').textContent = `${completed}/${total}`;
+            document.getElementById('weekDisplay').textContent = week;
+            document.getElementById('progressText').textContent = `${progress}%`;
+            document.getElementById('todayPoints').textContent = points;
+            document.getElementById('bestDay').textContent = bestDay > 0 ? `${bestDay} مهام` : '-';
+        }
+
+        // ============================================================
+        // 🎁 تحديث المكافآت
+        // ============================================================
+        function updateRewards() {
+            let totalCompleted = 0;
+            for (let day in missions) {
+                totalCompleted += missions[day].filter(m => m.completed).length;
+            }
+
+            let newReward = false;
+            let unlockedReward = null;
+
+            rewards.forEach(reward => {
+                if (totalCompleted >= reward.required && !reward.unlocked) {
+                    reward.unlocked = true;
+                    newReward = true;
+                    unlockedReward = reward;
+                }
+            });
+
+            if (newReward && unlockedReward) {
+                setTimeout(() => {
+                    showRewardModal(unlockedReward);
+                    createConfetti();
+                }, 500);
+            }
+
+            const grid = document.getElementById('rewardsGrid');
+            grid.innerHTML = rewards.map((reward, index) => `
+                <div class="reward-item ${reward.unlocked ? 'unlocked' : ''}" 
+                     onclick="${reward.unlocked ? `showRewardModal(rewards[${index}])` : ''}"
+                     title="${reward.unlocked ? 'اضغطي لرؤية المفاجأة!' : 'أنجزي ${reward.required} مهام لفتح هذا الصندوق'}">
+                    <span class="emoji">${reward.unlocked ? '🎁' : reward.emoji}</span>
+                    <div class="name">${reward.unlocked ? '✅ مفتوح' : reward.name}</div>
+                    <div class="status">${reward.unlocked ? '👆 اضغطي!' : `🔒 ${reward.required}`}</div>
+                    ${reward.unlocked ? `<div class="surprise-badge">🎉 مفاجأة!</div>` : ''}
+                </div>
+            `).join('');
+
+            saveData();
+        }
+
+        // ============================================================
+        // 🎊 عرض مودال المكافأة
+        // ============================================================
+        function showRewardModal(reward) {
+            document.getElementById('rewardEmoji').textContent = reward.emoji || '🎁';
+            document.getElementById('rewardSurpriseText').textContent = reward.surprise || 'مفاجأة رائعة تنتظرك!';
+            document.getElementById('rewardModal').classList.add('active');
+        }
+
+        function closeRewardModal() {
+            document.getElementById('rewardModal').classList.remove('active');
+        }
+
+        // ============================================================
+        // 🎊 تأثير الكنفيتي
+        // ============================================================
+        function createConfetti() {
+            const container = document.createElement('div');
+            container.className = 'confetti-container';
+            document.body.appendChild(container);
+
+            const colors = ['#FF69B4', '#DDA0DD', '#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFB6C1', '#9370DB'];
+
+            for (let i = 0; i < 60; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.width = (Math.random() * 8 + 4) + 'px';
+                piece.style.height = (Math.random() * 8 + 4) + 'px';
+                piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                piece.style.animationDelay = (Math.random() * 1.5) + 's';
+                container.appendChild(piece);
+            }
+
+            setTimeout(() => {
+                container.remove();
+            }, 4000);
+        }
+
+        // ============================================================
+        // 📱 إدارة المودالات
+        // ============================================================
+        function openAddMission() {
+            document.getElementById('addModal').classList.add('active');
+            document.getElementById('missionInput').focus();
+        }
+
+        function closeModal() {
+            document.getElementById('addModal').classList.remove('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        document.getElementById('missionInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') addMission();
+        });
+
+        // ============================================================
+        // ⭐ إنشاء النجوم
+        // ============================================================
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 35; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--duration', (Math.random() * 2 + 1.5) + 's');
+                star.style.animationDelay = (Math.random() * 3) + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // ============================================================
+        // 🚀 تشغيل التطبيق
+        // ============================================================
+        document.getElementById('daySelect').value = currentDay;
+        document.getElementById('currentDayLabel').textContent = `اليوم: ${dayNames[currentDay]}`;
+
+        loadData();
+        renderMissions();
+        createStars();
+
+        console.log('🌟 مهمة الإنقاذ - نسخة البيكسل آرت الكاملة!');
+        console.log('🎨 شخصيات مرسومة بالكامل بتقنية البيكسل!');
+        console.log('📅 اليوم الحالي: ' + dayNames[currentDay]);
+    </script>
+
+</body>
+</html>
